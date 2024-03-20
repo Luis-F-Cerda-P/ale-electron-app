@@ -25,5 +25,8 @@
   "homepage": "https://github.com/Luis-F-Cerda-P/ale-electron-app#readme",
   "devDependencies": {
     "electron": "^29.1.4"
+  },
+  "dependencies": {
+    "simpledotcss": "^2.3.0"
   }
 }
