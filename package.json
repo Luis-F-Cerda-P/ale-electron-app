@@ -1,0 +1,25 @@
+{
+  "name": "ale-electron-app",
+  "version": "1.0.0",
+  "description": "Aplicación de escritorio para automatizar reproducción de archivos de trabajo",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Luis-F-Cerda-P/ale-electron-app.git"
+  },
+  "keywords": [
+    "Desktop",
+    "App",
+    "Electron",
+    "Automation"
+  ],
+  "author": "Luis Cerda",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Luis-F-Cerda-P/ale-electron-app/issues"
+  },
+  "homepage": "https://github.com/Luis-F-Cerda-P/ale-electron-app#readme"
+}
