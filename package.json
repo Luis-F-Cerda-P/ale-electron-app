@@ -4,6 +4,7 @@
   "description": "Aplicación de escritorio para automatizar reproducción de archivos de trabajo",
   "main": "main.js",
   "scripts": {
+    "start": "electron .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
