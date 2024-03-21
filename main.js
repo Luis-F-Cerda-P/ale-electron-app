@@ -1,11 +1,11 @@
 const { app, BrowserWindow, ipcMain } = require('electron')
-const { dialog } = require('electron')
+const path = require('node:path')
+
 const createWindow = () => {
   const win = new BrowserWindow({
     width: 800,
     height: 600,
     webPreferences: {
-      nodeIntegration: true,
       preload: path.join(__dirname, 'preload.js')
     }
   })
@@ -14,9 +14,7 @@ const createWindow = () => {
 }
 
 app.whenReady().then(() => {
-  ipcMain.handle('open-file-dialog', (event, arg) => {
-    openFileDialog();
-  });
+  ipcMain.handle('ping', () => 'pong')
   createWindow()
 
   app.on('activate', () => {
@@ -31,19 +29,3 @@ app.on('window-all-closed', () => {
     app.quit()
   }
 })
-
-function openFileDialog() {
-  const options = {
-    properties: ['openDirectory']
-  };
-
-  dialog.showOpenDialog(mainWindow, options).then(result => {
-    if (!result.canceled) {
-      const folderPath = result.filePaths[0];
-      // Here you can record/store the folderPath as needed
-      console.log('Selected folder:', folderPath);
-    }
-  }).catch(err => {
-    console.error(err);
-  });
-}
