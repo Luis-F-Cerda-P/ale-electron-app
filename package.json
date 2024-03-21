@@ -1,11 +1,13 @@
 {
   "name": "ale-electron-app",
   "version": "1.0.0",
-  "description": "Aplicación de escritorio para automatizar reproducción de archivos de trabajo",
+  "description": "Aplicacion de escritorio para automatizar reproduccion de archivos de trabajo",
   "main": "main.js",
   "scripts": {
-    "start": "electron .",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "electron-forge start",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "package": "electron-forge package",
+    "make": "electron-forge make"
   },
   "repository": {
     "type": "git",
@@ -24,9 +26,17 @@
   },
   "homepage": "https://github.com/Luis-F-Cerda-P/ale-electron-app#readme",
   "devDependencies": {
+    "@electron-forge/cli": "^7.3.0",
+    "@electron-forge/maker-deb": "^7.3.0",
+    "@electron-forge/maker-rpm": "^7.3.0",
+    "@electron-forge/maker-squirrel": "^7.3.0",
+    "@electron-forge/maker-zip": "^7.3.0",
+    "@electron-forge/plugin-auto-unpack-natives": "^7.3.0",
+    "@electron-forge/plugin-fuses": "^7.3.0",
     "electron": "^29.1.4"
   },
   "dependencies": {
+    "electron-squirrel-startup": "^1.0.0",
     "simpledotcss": "^2.3.0"
   }
 }
