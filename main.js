@@ -15,17 +15,26 @@ const createWindow = () => {
 }
 
 const selectFolder = () => {
-  const selectedPath = dialog.showOpenDialogSync({
+  const selectedPath = dialog.showOpenDialog({
     properties: ['openDirectory', 'dontAddToRecent'],
     title: "Selecciona la carpeta de destino para las propuestas",
-  })
+  }).then(result => {
+    if (!result.canceled) {
+      const folderPath = result.filePaths[0];
+      // Here you can record/store the folderPath as needed
+      console.log('Selected folder:', folderPath);
+      return ('Selected folder:', folderPath);
+    }
+  }).catch(err => {
+    console.error(err);
+  });
   // console.log(selectedPath);
-  return '1'
+  // return '1'
 }
 
 app.whenReady().then(() => {
   ipcMain.handle('ping', () => 'pong')
-  ipcMain.handle('select-folder', selectFolder())
+  ipcMain.handle('select-folder', selectFolder)
   createWindow()
 
   app.on('activate', () => {
