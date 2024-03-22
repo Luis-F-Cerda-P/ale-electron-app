@@ -6,6 +6,5 @@ const func = async () => {
   const response = await window.versions.select()
   console.log(response)
 }
-selectButton.addEventListener('click', func)
 
-// func()
+selectButton.addEventListener('click', func)

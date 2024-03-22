@@ -16,21 +16,22 @@ const createWindow = () => {
   
 }
 
-const selectFolder = () => {
-  const selectedPath = dialog.showOpenDialog({
-    properties: ['openDirectory', 'dontAddToRecent'],
-    title: "Selecciona la carpeta de destino para las propuestas",
-  }).then(result => {
+const selectFolder = async () => {
+  try {
+    const result = await dialog.showOpenDialog({
+      properties: ['openDirectory', 'dontAddToRecent'],
+      title: "Selecciona la carpeta de destino para las propuestas",
+    });
+
     if (!result.canceled) {
       const folderPath = result.filePaths[0];
-      // Here you can record/store the folderPath as needed
       console.log('Selected folder:', folderPath);
-      return ('Selected folder:', folderPath);
+      return folderPath;
     }
-  }).catch(err => {
+  } catch (err) {
     console.error(err);
-  });
-}
+  }
+};
 
 app.whenReady().then(() => {
   ipcMain.handle('select-folder', selectFolder)
