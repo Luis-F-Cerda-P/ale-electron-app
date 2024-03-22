@@ -1,5 +1,4 @@
-const { app, BrowserWindow, ipcMain } = require('electron')
-const { dialog } = require('electron')
+const { app, BrowserWindow, ipcMain, dialog } = require('electron')
 const path = require('node:path')
 
 const createWindow = () => {
@@ -12,6 +11,9 @@ const createWindow = () => {
   })
 
   win.loadFile('index.html')
+
+  if (!app.isPackaged) win.webContents.openDevTools()
+  
 }
 
 const selectFolder = () => {
@@ -28,12 +30,9 @@ const selectFolder = () => {
   }).catch(err => {
     console.error(err);
   });
-  // console.log(selectedPath);
-  // return '1'
 }
 
 app.whenReady().then(() => {
-  ipcMain.handle('ping', () => 'pong')
   ipcMain.handle('select-folder', selectFolder)
   createWindow()
 
