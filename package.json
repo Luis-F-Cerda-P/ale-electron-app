@@ -38,6 +38,7 @@
   },
   "dependencies": {
     "electron-squirrel-startup": "^1.0.0",
-    "simpledotcss": "^2.3.0"
+    "simpledotcss": "^2.3.0",
+    "sqlite3": "^5.1.7"
   }
 }
