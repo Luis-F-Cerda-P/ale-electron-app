@@ -5,14 +5,13 @@ const { createDbIfNotExists, getAppSettings } = require('./database/main')
 const path = require('node:path')
 const userDataPath = app.getPath('userData');
 const dbPath = path.join(userDataPath, 'your_database.db');
-
-console.log(dbPath);
-
 const db = createDbIfNotExists(dbPath, userDataPath)
-getAppSettings(db)
+
+const userSettings = () => getAppSettings(db)
   .then(appSettings => {
     // Use appSettings here
-    console.log(appSettings);
+    console.log(appSettings)
+    return appSettings
   })
   .catch(err => {
     // Handle error
@@ -35,6 +34,7 @@ const createWindow = () => {
 
 app.whenReady().then(() => {
   ipcMain.handle('select-folder', selectFolder)
+  ipcMain.handle('get-settings', userSettings)
   createWindow()
 
   app.on('activate', () => {

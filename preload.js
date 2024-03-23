@@ -1,6 +1,6 @@
 const { contextBridge, ipcRenderer } = require('electron')
 
-contextBridge.exposeInMainWorld('versions', {
+contextBridge.exposeInMainWorld('settings', {
   select: () => ipcRenderer.invoke('select-folder'),
-  defaultPath: () => ipcRenderer.invoke('get-settings'),
+  defaultFolder: () => ipcRenderer.invoke('get-settings'),
 })
