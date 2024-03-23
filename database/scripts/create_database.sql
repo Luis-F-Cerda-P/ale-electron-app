@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS setting (description TEXT, value TEXT);

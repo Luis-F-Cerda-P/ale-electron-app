@@ -1,13 +1,29 @@
-const defaultPath = document.getElementById('select-folder')
-// defaultPath.innerText = `${response}`
+const defaultOutputPathButton = document.getElementById('select-folder')
+const humanizePath = pathString => pathString.replaceAll("\\", " > ")
 const initialize = async () => {
-  const userSettings = await window.settings.defaultFolder()
-  console.log(userSettings[0]);
-}
-const func = async () => {
-  const response = await window.settings.select()
-  console.log(response)
+  const defaultFolder = humanizePath(await window.settings.all())
+  // console.log(defaultFolder);
+  defaultOutputPathButton.textContent = defaultFolder
+  
+  onHoverChangeText(defaultOutputPathButton, "Cambiar")
 }
 
-defaultPath.addEventListener('click', func)
+const onHoverChangeText = (element, hoverText) => {
+  const originalText = element.textContent;
+  element.addEventListener('mouseover', () => {
+    element.textContent = hoverText;
+  });
+
+  element.addEventListener('mouseout', () => {
+    element.textContent = originalText;
+  });
+}
+
+const changeOutputPath = async () => {
+  const selectedPath = humanizePath(await window.settings.select())
+  defaultOutputPathButton.innerText = selectedPath
+  onHoverChangeText(defaultOutputPathButton, 'Cambiar')
+}
+
 initialize()
+defaultOutputPathButton.addEventListener('click', changeOutputPath)
