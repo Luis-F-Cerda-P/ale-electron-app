@@ -1,9 +1,6 @@
 const { contextBridge, ipcRenderer } = require('electron')
 
 contextBridge.exposeInMainWorld('versions', {
-  node: () => process.versions.node,
-  chrome: () => process.versions.chrome,
-  electron: () => process.versions.electron,
   select: () => ipcRenderer.invoke('select-folder'),
-  // we can also expose variables, not just functions
+  defaultPath: () => ipcRenderer.invoke('get-settings'),
 })
