@@ -16,7 +16,7 @@ const selectFolder = async () => {
       console.log('Selected folder:', folderPath);
       await setDefaultFolderSetting(folderPath); 
       return folderPath;
-    }
+    } 
   } catch (err) {
     console.error(err);
   }
