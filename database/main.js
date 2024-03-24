@@ -66,4 +66,21 @@ function getDefaultFolderSetting() {
 
 }
 
-module.exports = { getDefaultFolderSetting }
+function setDefaultFolderSetting(newPath) {
+  return new Promise((resolve, reject) => {
+    db.run("UPDATE setting SET value = ? WHERE description = 'default_folder'", [newPath], (err) => {
+      if (err) {
+        console.error('Error setting default_folder setting:', err);
+        reject(err);
+      } else {
+        resolve()
+      }
+    });
+  });
+}
+
+module.exports = {
+  db,
+  getDefaultFolderSetting,
+  setDefaultFolderSetting
+}
