@@ -7,6 +7,7 @@
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'" />
   <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'" />
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="custom-styles.css">
 
   <title>Tomatico</title>
 </head>
@@ -18,13 +19,50 @@
     <a href="">Configuración</a>
   </nav>
   <h1>Tomatico 🍅</h1>
-  <p>Una herramienta para (au)<b>tomatizar</b> los procesos repetitivos de tu día a día</p>
+  <p>Una herramienta para au-<mark>tomatizar</mark> los procesos repetitivos de tu día a día</p>
 </header>
 
 <body>
-  <h2>Hola 😁 tomaticemos algo!</h2>
   <p>Las propuestas nuevas van a guardarse en:</p>
   <button id="select-folder">Click Aquí</button>
+  <form>
+    <fieldset id="forms__input">
+      <legend><strong>Nueva propuesta</strong></legend>
+      <p>
+        <label for="cliente">Cliente</label>
+        <input required id="cliente" type="text" placeholder="Nombre completo">
+      </p>
+      <p>
+        <label for="ente_publico">Ente público</label>
+        <input id="ente_publico" name="checkbox" type="checkbox">
+      </p>
+    
+
+      <label for="tipo_venta">Tipo de venta</label>
+      <select required id="tipo_venta">
+        <option value="" disabled selected>Seleccionar</option>
+        <option value="CD">CD - Compra Directa</option>
+        <option value="LA">LA - Licitación Abreviada</option>
+        <option value="LP">LP - Licitación Pública</option>
+        <option value="CR">CR - Concurso de Precios</option>
+      </select>
+      </p>
+      <p>
+        <label for="codigo_licitacion">Código Licitación</label>
+        <input required id="codigo_licitacion" type="text" placeholder="AAAA1111">
+      </p>
+      <p>
+        <label for="año_licitacion">Fecha del llamado</label>
+        <input required type="month" id="año_licitacion">
+      </p>
+      <p>
+        <label for="descripcion">Descripción</label>
+        <input id="descripcion" type="text" placeholder="ej. 15 notebooks">
+      </p>
+      <p><a href="#top">[Volver al principio]</a></p>
+      
+    </fieldset>
+  </form>
 </body>
 <script src="./renderer.js"></script>
 
