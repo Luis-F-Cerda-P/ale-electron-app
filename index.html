@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="custom-styles.css">
 
-  <title>Tomático 🍅</title>
+  <title>Tomático</title>
 </head>
 
 <header>
@@ -25,17 +25,17 @@
 <body>
   <p>Las propuestas nuevas van a guardarse en:</p>
   <button class="button" id="select-folder" type="button"></button>
-  <form>
+  <form id="myForm">
     
     <fieldset id="forms__input">
       <legend><strong><h4>Nueva Propuesta</h4></strong></legend>
       <p>
         <label for="cliente">Cliente *</label>
-        <input required id="cliente" type="text" placeholder="ej. Juan Pérez">
+        <input required name="cliente" id="cliente" type="text" placeholder="ej. Juan Pérez">
       </p>
       <p>
         <label for="tipo_venta">Tipo de venta *</label>
-        <select required id="tipo_venta">
+        <select required name="tipo_venta"id="tipo_venta">
           <option value="" disabled selected>Seleccionar</option>
           <option value="CD">CD - Compra Directa</option>
           <option value="LA">LA - Licitación Abreviada</option>
@@ -49,7 +49,7 @@
       </p>
       <p>
         <label for="ente-publico">Ente público</label>
-        <input id="ente-publico" name="checkbox" type="checkbox">
+        <input id="ente-publico" name="ente-publico" type="checkbox">
       </p>
       <div id="toggle-ente-publico" hidden>
         <p>
@@ -57,8 +57,8 @@
           <input name="codigo_licitacion" id="codigo_licitacion" type="text" placeholder="ej. AAAA1111">
         </p>
         <p>
-          <label for="año_licitacion">Fecha del llamado *</label>
-          <input type="month" id="año_licitacion" name="año_licitacion">
+          <label for="ano_licitacion">Fecha del llamado *</label>
+          <input type="month" id="ano_licitacion" name="ano_licitacion">
         </p>
       </div>
 
