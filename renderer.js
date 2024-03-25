@@ -52,22 +52,27 @@ const changeOutputPath = async () => {
 }
 
 async function createProposal(event) {
-    event.preventDefault();
-    const formData = Array.from(new FormData(this).entries())
-    console.log(formData);
-    const response = await window.settings.createProposal(formData)
-    console.log(response);  
-    this.reset()
+  event.preventDefault();
+  const formData = Array.from(new FormData(this).entries())
+  console.log(formData);
+  const response = await window.settings.createProposal(formData)
+  console.log(response);
+  this.reset()
 }
 
-function toggleVisibility() {
-  const entesPublicos = document.getElementById("toggle-" + this.id)
-  entesPublicos.querySelectorAll("input").forEach(input => input.toggleAttribute("required"))
-  entesPublicos.toggleAttribute("hidden")
-  
+function toggleElements() {
+  const toggledElements = document.querySelectorAll(".toggle-" + this.id)
+  toggledElements.forEach(element => {
+    element.querySelectorAll("input").forEach(input => {
+      input.toggleAttribute("required")
+      input.value = ""
+    })
+    element.toggleAttribute("hidden")
+  })
+
 }
 
 initialize()
 defaultOutputPathButton.addEventListener('click', changeOutputPath)
-entePublicoCheckbox.addEventListener('click', toggleVisibility)
+entePublicoCheckbox.addEventListener('click', toggleElements)
 document.getElementById('myForm').addEventListener('submit', createProposal);
