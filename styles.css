@@ -1,4 +1,4 @@
-@import url('node_modules/simpledotcss/simple.min.css');
+@import url('node_modules/simpledotcss/simple.css');
 
 /* CSS styles to display input and label inline */
 label[for="ente-publico"] {
