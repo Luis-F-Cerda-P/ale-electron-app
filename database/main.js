@@ -10,30 +10,35 @@ const dbPath = path.join(userDataPath, 'your_database.db');
 const db = createDbIfNotExists(dbPath, myDocumentsPath)
 
 function getSqlScript(script_name) {
-  const script = fs.readFileSync(`./database/scripts/${script_name}.sql`).toString()
+  const script = fs.readFileSync(`${__dirname}/scripts/${script_name}.sql`).toString()
   return script
 }
 
 function createDbIfNotExists(dbPath, myDocumentsPath) {
   const creationScript = getSqlScript('create_database')
   let db;
-  if (fs.existsSync(dbPath)) {
-    console.log('Database already exists');
-    db = new sqlite3.Database(dbPath, sqlite3.OPEN_READWRITE);
-    db.serialize(() => {
-      db.run(creationScript);
-    })
-  } else {
-    // Database file does not exist, create a new one
-    db = new sqlite3.Database(dbPath, sqlite3.OPEN_CREATE | sqlite3.OPEN_READWRITE);
-    const initialValues = getSqlScript('initial_values').replace("#", myDocumentsPath)
-    db.serialize(() => {
-      db.run(creationScript);
-      console.log('Database created');
-      db.run(initialValues)
-    })
+  try {
+    if (fs.existsSync(dbPath)) {
+      console.log('Database already exists');
+      db = new sqlite3.Database(dbPath, sqlite3.OPEN_READWRITE);
+      db.serialize(() => {
+        db.run(creationScript);
+      })
+    } else {
+      // Database file does not exist, create a new one
+      db = new sqlite3.Database(dbPath, sqlite3.OPEN_CREATE | sqlite3.OPEN_READWRITE);
+      const initialValues = getSqlScript('initial_values').replace("#", myDocumentsPath)
+      db.serialize(() => {
+        db.run(creationScript);
+        console.log('Database created');
+        db.run(initialValues)
+      })
+    }
+    return db
+
+  } catch (error) {
+    console.error(error)
   }
-  return db
 }
 
 function getAppSettings() {
@@ -81,6 +86,7 @@ function setDefaultFolderSetting(newPath) {
 
 module.exports = {
   db,
+  getAppSettings,
   getDefaultFolderSetting,
   setDefaultFolderSetting
 }

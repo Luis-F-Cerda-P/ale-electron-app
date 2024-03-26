@@ -1,6 +1,6 @@
 const { app, BrowserWindow, ipcMain } = require('electron')
 const { selectFolder, createProposal } = require('./file-system-features/select-target-folder')
-const { getDefaultFolderSetting } = require('./database/main')
+const { getAppSettings } = require('./database/main')
 const path = require('node:path')
 
 const createWindow = () => {
@@ -20,7 +20,7 @@ const createWindow = () => {
 
 app.whenReady().then(() => {
   ipcMain.handle('select-folder', selectFolder)
-  ipcMain.handle('get-settings', getDefaultFolderSetting)
+  ipcMain.handle('get-settings', getAppSettings)
   ipcMain.handle('create-proposal', createProposal)
   createWindow()
 

@@ -46,14 +46,14 @@ const createProposal = async (_event, formData) => {
     // TODO: Make the correlative ID dynamic and configurable. Even pass it to the front end so it's part of the form. On click, it can be modified through a form inside a modal
     const basePath = await getDefaultFolderSetting();
     const year = new Date().getFullYear() - 2000;
-    const correlative = "025"
-    const internalId = `P${year}${correlative}`
     
     // TODO: validate the formObject in the frontend, then here. Maybe do some of this process in the front process.
     const formObject = Object.fromEntries(formData.filter(el => el[1]).map(el => [el[0], el[1].trim()]))
     const [inicialesTipoVenta, tipoVenta] = formObject.tipo_venta.split(" - ")
+    const correlative = formObject["proposal-number"]
+    const internalId = `P${year}${correlative}`
+    
     let proposalName = `\\${internalId} - AS - ${formObject.cliente}`
-
     let fechaLicitacion;
     let anoLicitacionCorto;
     let anoLicitacionLargo;
@@ -68,9 +68,9 @@ const createProposal = async (_event, formData) => {
 
     // TODO: Get file templates dynamically. Find the files from a database reference => 'Tomate creation' UI
     const folderPath = path.join(basePath, proposalName,);
-    const excelTemplateSource = `.\\plantillaExcel.xlsx`
+    const excelTemplateSource = `${__dirname}\\..\\plantillaExcel.xlsx`
     const excelFileDestination = folderPath + proposalName + ".xlsx";
-    const wordTemplateSource = `.\\plantillaWord 1.docx`
+    const wordTemplateSource = `${__dirname}\\..\\plantillaWord 2.docx`
     const wordFileDestination = folderPath + proposalName + ".docx";
 
     fs.mkdirSync(folderPath);
@@ -91,8 +91,9 @@ const createProposal = async (_event, formData) => {
     shell.openPath(folderPath);
 
     return folderPath;
-  } catch (err) {
-    console.log(err)
+  } catch (error) {
+    console.log(error)
+    return error.message
   }
 }
 

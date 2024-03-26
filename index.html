@@ -14,8 +14,8 @@
 
 <header>
   <nav>
-    <a href="/" class="current">Inicio</a>
-    <a href="">Propuestas</a>
+    <a href="" class="current">Inicio</a>
+    <!-- <a href="">Propuestas</a> -->
     <a href="">Configuración</a>
   </nav>
   <h1><mark>&nbsp;Tomático 🍅</mark></h1>
@@ -28,23 +28,29 @@
   <form id="myForm">
 
     <fieldset id="forms__input">
-      <legend><strong>
+      <legend>
+        <strong>
           <h4>Nueva Propuesta</h4>
-        </strong></legend>
+        </strong>
+      </legend>
+      <span>
+        <input class="button auto-width" id="proposal-number" type="text">
+      </span>
       <p>
         <label for="cliente">Cliente *</label>
-        <input required name="cliente[]" id="cliente" type="text" placeholder="ej. Empresa S.A.">
+        <input required name="cliente" id="cliente" type="text" placeholder="ej. Empresa S.A.">
+        <input id="ente-publico" name="ente-publico" type="checkbox">
+        <label for="ente-publico">Ente público</label>
       </p>
       <div hidden class="toggle-ente-publico">
         <p>
           <label for="cliente1">Divisón (opcional)</label>
-          <input name="cliente[]" id="cliente1" type="text" placeholder="ej. Depto. Compras">
+          <input name="cliente1" id="cliente1" type="text" placeholder="ej. Depto. Compras">
         </p>
         <label for="cliente2">Responsable (opcional)</label>
-        <input name="cliente[]" id="cliente2" type="text" placeholder="ej. Juan Pérez">
+        <input name="cliente2" id="cliente2" type="text" placeholder="ej. Juan Pérez">
       </div>
-      <input id="ente-publico" name="ente-publico" type="checkbox">
-      <label for="ente-publico">Ente público</label>
+      <hr>
       <div class="toggle-ente-publico" hidden>
         <p>
           <label for="codigo_licitacion">Código Licitación *</label>

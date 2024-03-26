@@ -4,3 +4,11 @@
 label[for="ente-publico"] {
   display: inline-block;
 }
+
+#formHeader {
+  display: inline-block;
+}
+
+#proposal-number.auto-width {
+  width: auto;
+}

@@ -17,11 +17,15 @@ const humanizePath = pathString => {
 
 
 const initialize = async () => {
-  const defaultFolder = humanizePath(await window.settings.all())
-  // console.log(defaultFolder);
+  const proposalNumberButton = document.getElementById('proposal-number')
+  const settings = await window.settings.allSettings()
+  console.log(settings);
+  const defaultFolder = humanizePath(settings.default_folder)
+  const proposalNumber = (settings.proposal_id+1).padStart(3, "0")
   defaultOutputPathButton.textContent = defaultFolder
-
+  proposalNumberButton.value   = proposalNumber
   onHoverChangeText(defaultOutputPathButton, "Cambiar")
+  onHoverChangeValue(proposalNumberButton, "Cambiar")
 }
 
 const onHoverChangeText = (element, hoverText) => {
@@ -39,6 +43,24 @@ const onHoverChangeText = (element, hoverText) => {
     element.style.width = ""
     element.style.height = ""
     element.textContent = originalText;
+  });
+}
+
+const onHoverChangeValue = (element, hoverText) => {
+  const originalValue = element.value;
+  element.addEventListener('mouseover', () => {
+    const rect = element.getBoundingClientRect();
+    const width = rect.width
+    const height = rect.height
+    element.style.width = width.toString() + "px"
+    element.style.height = height.toString() + "px"
+    element.value = hoverText;
+  });
+
+  element.addEventListener('mouseout', () => {
+    element.style.width = ""
+    element.style.height = ""
+    element.value = originalValue;
   });
 }
 
