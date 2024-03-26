@@ -25,6 +25,7 @@
 <body>
   <p>Las propuestas nuevas van a guardarse en:</p>
   <button class="button" id="select-folder" type="button"></button>
+
   <form id="myForm">
 
     <fieldset id="forms__input">
@@ -33,52 +34,73 @@
           <h4>Nueva Propuesta</h4>
         </strong>
       </legend>
-      <span>
-        <input class="button auto-width" id="proposal-number" type="text">
-      </span>
+      <p>
+        <label for="proposal-number">Id Interno: *</label>
+        <input required id="proposal-number" name="proposal-number" type="text" pattern="\d{1,3}"
+          title="Hasta 3 caracteres numéricos ej. 999">
+      </p>
+      <hr>
       <p>
         <label for="cliente">Cliente *</label>
         <input required name="cliente" id="cliente" type="text" placeholder="ej. Empresa S.A.">
         <input id="ente-publico" name="ente-publico" type="checkbox">
         <label for="ente-publico">Ente público</label>
       </p>
-      <div hidden class="toggle-ente-publico">
-        <p>
-          <label for="cliente1">Divisón (opcional)</label>
-          <input name="cliente1" id="cliente1" type="text" placeholder="ej. Depto. Compras">
-        </p>
-        <label for="cliente2">Responsable (opcional)</label>
-        <input name="cliente2" id="cliente2" type="text" placeholder="ej. Juan Pérez">
-      </div>
+      <p>
+        <label for="cliente1">División (opcional)</label>
+        <input name="cliente1" id="cliente1" type="text" placeholder="ej. Depto. Compras">
+      </p>
+      <label for="cliente2">Responsable (opcional)</label>
+      <input name="cliente2" id="cliente2" type="text" placeholder="ej. Juan Pérez">
       <hr>
+      <div class="toggle-ente-publico">
+        <p>
+          <label for="fecha_propuesta">Fecha propuesta (privados) *</label>
+          <input type="date" id="fecha_propuesta" name="fecha_propuesta">
+        </p>
+
+      </div>
       <div class="toggle-ente-publico" hidden>
         <p>
           <label for="codigo_licitacion">Código Licitación *</label>
           <input name="codigo_licitacion" id="codigo_licitacion" type="text" placeholder="ej. AAAA1111">
-        </p>
         <p>
           <label for="fecha_licitacion">Fecha del llamado *</label>
           <input type="date" id="fecha_licitacion" name="fecha_licitacion">
         </p>
+        </p>
+        <hr>
       </div>
       <p>
         <label for="tipo_venta">Tipo de venta *</label>
         <select required name="tipo_venta" id="tipo_venta">
-          <option selected value="CD - Compra Directa">CD - Compra Directa</option>
-          <option class="toggle-ente-publico" hidden value="LA - Licitación Abreviada">LA - Licitación Abreviada
+          <option selected value="CD - Compra Directa">Compra Directa</option>
+          <option class="toggle-ente-publico" hidden value="LA - Licitación Abreviada">Licitación Abreviada
           </option>
-          <option class="toggle-ente-publico" hidden value="LP - Licitación Pública">LP - Licitación Pública</option>
-          <option class="toggle-ente-publico" hidden value="CR - Concurso de Precios">CR - Concurso de Precios</option>
+          <option class="toggle-ente-publico" hidden value="LP - Licitación Pública">Licitación Pública</option>
+          <option class="toggle-ente-publico" hidden value="CR - Concurso de Precios">Concurso de Precios</option>
           <option value="">No especificar</option>
         </select>
       </p>
       <p>
-        <label for="descripcion">Descripción</label>
+        <label for="descripcion">Descripción (opcional)</label>
         <input id="descripcion" name="descripcion" type="text" placeholder="ej. 15 notebooks">
       </p>
       <input type="submit" value="Crear propuesta">
     </fieldset>
   </form>
+  <dialog id="dialog-demo">
+    <h2>Todo listo!</h2>
+    <p>
+      <button type="button" id="open-files">Ver archivos generados</button>
+    </p>
+    <p>
+      <button type="button" id="close-modal">Generar otra propuesta</button>
+    </p>
+    <p>
+      <button type="button" id="close-app">Salir</button>
+    </p>
+  </dialog>
 </body>
 <script src="./renderer.js"></script>
 

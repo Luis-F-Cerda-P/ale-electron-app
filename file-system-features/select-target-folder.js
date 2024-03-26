@@ -1,8 +1,7 @@
-const { dialog } = require('electron')
-const { shell } = require('electron');
+const { dialog, shell } = require('electron')
 const path = require('node:path');
 const fs = require("node:fs")
-const { db, getDefaultFolderSetting, setDefaultFolderSetting } = require('../database/main')
+const { db, getDefaultFolderSetting, setDefaultFolderSetting, setCorrelativeIdSetting } = require('../database/main')
 const { TemplateHandler } = require('easy-template-x')
 
 
@@ -26,6 +25,16 @@ const selectFolder = async () => {
   }
 };
 
+const openPath = async (_event, folderPath) => {
+  try {
+    console.log(folderPath);
+    shell.openPath(folderPath);
+  } catch (error) {
+    console.error(error)
+    return error
+  }
+}
+
 
 const humanizeDateString = (dateString) => {
   const dateObject = new Date(dateString + "T00:00:00");
@@ -41,17 +50,23 @@ const humanizeDateString = (dateString) => {
 }
 
 const createProposal = async (_event, formData) => {
+  function processFormData(formData) {
+    
+  }
   // TODO: Split this process into subprocesses (processFormObject, createFolder, copyTemplates, replaceDataInTemplates)
   try {
     // TODO: Make the correlative ID dynamic and configurable. Even pass it to the front end so it's part of the form. On click, it can be modified through a form inside a modal
     const basePath = await getDefaultFolderSetting();
-    const year = new Date().getFullYear() - 2000;
+    const twoDigitYear = new Date().getFullYear() - 2000;
     
     // TODO: validate the formObject in the frontend, then here. Maybe do some of this process in the front process.
     const formObject = Object.fromEntries(formData.filter(el => el[1]).map(el => [el[0], el[1].trim()]))
     const [inicialesTipoVenta, tipoVenta] = formObject.tipo_venta.split(" - ")
     const correlative = formObject["proposal-number"]
-    const internalId = `P${year}${correlative}`
+    const valueForDatabase =  parseInt(correlative)+1
+    await setCorrelativeIdSetting(valueForDatabase)
+    const internalId = `P${twoDigitYear}${correlative}`
+    
     
     let proposalName = `\\${internalId} - AS - ${formObject.cliente}`
     let fechaLicitacion;
@@ -88,9 +103,13 @@ const createProposal = async (_event, formData) => {
     const handler = new TemplateHandler(); 
     const doc = await handler.process(newWordFile, replacementData)
     fs.writeFileSync(wordFileDestination, doc)
-    shell.openPath(folderPath);
+    
+    const response = {
+      path: folderPath,
+      proposalId: valueForDatabase
+    }
 
-    return folderPath;
+    return response;
   } catch (error) {
     console.log(error)
     return error.message
@@ -98,4 +117,4 @@ const createProposal = async (_event, formData) => {
 }
 
 
-module.exports = { createProposal, selectFolder }
+module.exports = { createProposal, selectFolder, openPath }

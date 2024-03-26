@@ -52,6 +52,7 @@ function getAppSettings() {
           return accumulator
         }, {})
         // console.log(settings);
+        // console.log(app.getPath('userData'));
         resolve(settings);
       }
     });
@@ -84,9 +85,23 @@ function setDefaultFolderSetting(newPath) {
   });
 }
 
+function setCorrelativeIdSetting(newValue) {
+  return new Promise((resolve, reject) => {
+    db.run("UPDATE setting SET value = ? WHERE description = 'proposal_id'", [parseInt(newValue)], (err) => {
+      if (err) {
+        console.error('Error setting proposal_id setting:', err);
+        reject(err);
+      } else {
+        resolve()
+      }
+    });
+  });
+}
+
 module.exports = {
   db,
   getAppSettings,
   getDefaultFolderSetting,
-  setDefaultFolderSetting
+  setDefaultFolderSetting,
+  setCorrelativeIdSetting
 }

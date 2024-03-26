@@ -1,6 +1,6 @@
 const { app, BrowserWindow, ipcMain } = require('electron')
-const { selectFolder, createProposal } = require('./file-system-features/select-target-folder')
-const { getAppSettings } = require('./database/main')
+const { selectFolder, createProposal, openPath } = require('./file-system-features/select-target-folder')
+const { getAppSettings, setCorrelativeIdSetting } = require('./database/main')
 const path = require('node:path')
 
 const createWindow = () => {
@@ -22,6 +22,7 @@ app.whenReady().then(() => {
   ipcMain.handle('select-folder', selectFolder)
   ipcMain.handle('get-settings', getAppSettings)
   ipcMain.handle('create-proposal', createProposal)
+  ipcMain.handle('open-path', openPath)
   createWindow()
 
   app.on('activate', () => {

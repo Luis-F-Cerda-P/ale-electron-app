@@ -1,6 +1,7 @@
 const defaultOutputPathButton = document.getElementById('select-folder')
 const entePublicoCheckbox = document.getElementById('ente-publico')
 const apendiceEntePublico = document.getElementById('apendice-ente-publico')
+
 const humanizePath = pathString => {
   const pathComponents = pathString.split("\\",)
   if (pathComponents.length < 4) {
@@ -14,6 +15,7 @@ const humanizePath = pathString => {
     ].join(" > ")
   }
 }
+const formatProposalNumber = proposalNumber => proposalNumber.toString().padStart(3, "0")
 
 
 const initialize = async () => {
@@ -21,11 +23,14 @@ const initialize = async () => {
   const settings = await window.settings.allSettings()
   console.log(settings);
   const defaultFolder = humanizePath(settings.default_folder)
-  const proposalNumber = (settings.proposal_id+1).padStart(3, "0")
+  const proposalIdString = formatProposalNumber(settings.proposal_id)
   defaultOutputPathButton.textContent = defaultFolder
-  proposalNumberButton.value   = proposalNumber
+  proposalNumberButton.value = proposalIdString
+  document.getElementById('fecha_propuesta').valueAsDate = new Date()
   onHoverChangeText(defaultOutputPathButton, "Cambiar")
-  onHoverChangeValue(proposalNumberButton, "Cambiar")
+  document.getElementById('open-files').addEventListener('click', openCreatedFiles)
+  document.getElementById('close-modal').addEventListener('click', closeModal)
+  document.getElementById('close-app').addEventListener('click', closeApp)
 }
 
 const onHoverChangeText = (element, hoverText) => {
@@ -73,13 +78,42 @@ const changeOutputPath = async () => {
   }
 }
 
+function changeCorrelativeId() {
+  if (this.checkValidity()) {
+    console.log("valid");
+    const value = this.value
+    this.value = formatProposalNumber(value)
+  } 
+}
+
+async function openCreatedFiles() {
+  console.log(this.value);
+  console.log(this);
+  await window.settings.openPath(this.value)
+}
+
+function closeModal() {
+  document.getElementById('dialog-demo').close()
+  document.querySelector('body').scrollIntoView({ behavior: 'smooth', block: 'start' })
+}
+
+function closeApp() {
+  window.close()
+}
+
 async function createProposal(event) {
   event.preventDefault();
   const formData = Array.from(new FormData(this).entries())
   console.log(formData);
   const response = await window.settings.createProposal(formData)
-  console.log(response);
-  this.reset()
+  if (response) {
+    console.log(response);
+    this.reset()
+    document.getElementById('proposal-number').value = formatProposalNumber(response.proposalId)
+    document.getElementById('open-files').value = response.path
+    document.getElementById('dialog-demo').showModal()
+    
+  }
 }
 
 function toggleElements() {
@@ -98,3 +132,4 @@ initialize()
 defaultOutputPathButton.addEventListener('click', changeOutputPath)
 entePublicoCheckbox.addEventListener('click', toggleElements)
 document.getElementById('myForm').addEventListener('submit', createProposal);
+document.getElementById('proposal-number').addEventListener('change', changeCorrelativeId)
