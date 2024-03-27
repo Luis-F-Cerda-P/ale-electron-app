@@ -13,11 +13,6 @@
 </head>
 
 <header>
-  <nav>
-    <a href="" class="current">Inicio</a>
-    <!-- <a href="">Propuestas</a> -->
-    <a href="">Configuración</a>
-  </nav>
   <h1><mark>&nbsp;Tomático 🍅</mark></h1>
   <p>Au<u>tomatiza</u>🍅 tus procesos</p>
 </header>
@@ -35,56 +30,61 @@
         </strong>
       </legend>
       <p>
-        <label for="proposal-number">Id Interno: *</label>
-        <input required id="proposal-number" name="proposal-number" type="text" pattern="\d{1,3}"
+        <label for="proposal_number">Id Interno: *</label>
+        <input required id="proposal_number" name="proposal_number" type="text" pattern="\d{1,3}"
           title="Hasta 3 caracteres numéricos ej. 999">
       </p>
       <hr>
       <p>
         <label for="cliente">Cliente *</label>
-        <input required name="cliente" id="cliente" type="text" placeholder="ej. Empresa S.A.">
-        <input id="ente-publico" name="ente-publico" type="checkbox">
-        <label for="ente-publico">Ente público</label>
+        <input pattern="[\p{L}\p{N}]+" title="No acepta caracteres especiales como \/:*?&quot;&lt;>|" required
+          name="cliente" id="cliente" type="text" placeholder="ej. Empresa S.A.">
+        <input id="ente_publico" name="ente_publico" type="checkbox">
+        <label for="ente_publico">Ente público</label>
       </p>
       <p>
         <label for="cliente1">División (opcional)</label>
-        <input name="cliente1" id="cliente1" type="text" placeholder="ej. Depto. Compras">
+        <input pattern="[\p{L}\p{N}]+" title="No acepta caracteres especiales como \/:*?&quot;&lt;>|" name="cliente1" id="cliente1" type="text" placeholder="ej. Depto. Compras">
       </p>
       <label for="cliente2">Responsable (opcional)</label>
-      <input name="cliente2" id="cliente2" type="text" placeholder="ej. Juan Pérez">
+      <input pattern="[\p{L}\p{N}]+" title="No acepta caracteres especiales como \/:*?&quot;&lt;>|" name="cliente2"
+        id="cliente2" type="text" placeholder="ej. Juan Pérez">
       <hr>
-      <div class="toggle-ente-publico">
+      <div class="toggle-ente_publico">
         <p>
           <label for="fecha_propuesta">Fecha propuesta (privados) *</label>
-          <input type="date" id="fecha_propuesta" name="fecha_propuesta">
+          <input required type="date" id="fecha_propuesta" name="fecha_propuesta">
         </p>
 
       </div>
-      <div class="toggle-ente-publico" hidden>
+      <div class="toggle-ente_publico" hidden>
         <p>
           <label for="codigo_licitacion">Código Licitación *</label>
-          <input name="codigo_licitacion" id="codigo_licitacion" type="text" placeholder="ej. AAAA1111">
+          <input pattern="[\p{L}\p{N}]+" title="No acepta caracteres especiales como \/:*?&quot;&lt;>|"
+            name="codigo_licitacion" id="codigo_licitacion" type="text" placeholder="ej. AAAA1111">
+        </p>
         <p>
           <label for="fecha_licitacion">Fecha del llamado *</label>
           <input type="date" id="fecha_licitacion" name="fecha_licitacion">
         </p>
-        </p>
+
         <hr>
       </div>
       <p>
         <label for="tipo_venta">Tipo de venta *</label>
         <select required name="tipo_venta" id="tipo_venta">
           <option selected value="CD - Compra Directa">Compra Directa</option>
-          <option class="toggle-ente-publico" hidden value="LA - Licitación Abreviada">Licitación Abreviada
+          <option class="toggle-ente_publico" hidden value="LA - Licitación Abreviada">Licitación Abreviada
           </option>
-          <option class="toggle-ente-publico" hidden value="LP - Licitación Pública">Licitación Pública</option>
-          <option class="toggle-ente-publico" hidden value="CR - Concurso de Precios">Concurso de Precios</option>
+          <option class="toggle-ente_publico" hidden value="LP - Licitación Pública">Licitación Pública</option>
+          <option class="toggle-ente_publico" hidden value="CR - Concurso de Precios">Concurso de Precios</option>
           <option value="">No especificar</option>
         </select>
       </p>
       <p>
         <label for="descripcion">Descripción (opcional)</label>
-        <input id="descripcion" name="descripcion" type="text" placeholder="ej. 15 notebooks">
+        <input pattern="[\p{L}\p{N}]+" title="No acepta caracteres especiales como \/:*?&quot;&lt;>|" id="descripcion"
+          name="descripcion" type="text" placeholder="ej. 15 notebooks">
       </p>
       <input type="submit" value="Crear propuesta">
     </fieldset>

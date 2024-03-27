@@ -1,14 +1,10 @@
 @import url('node_modules/simpledotcss/simple.css');
 
 /* CSS styles to display input and label inline */
-label[for="ente-publico"] {
+label[for="ente_publico"] {
   display: inline-block;
 }
 
-#formHeader {
-  display: inline-block;
-}
-
-#proposal-number.auto-width {
-  width: auto;
+body>header {
+  padding-top: 5%;
 }

@@ -1,5 +1,5 @@
 const defaultOutputPathButton = document.getElementById('select-folder')
-const entePublicoCheckbox = document.getElementById('ente-publico')
+const entePublicoCheckbox = document.getElementById('ente_publico')
 const apendiceEntePublico = document.getElementById('apendice-ente-publico')
 
 const humanizePath = pathString => {
@@ -19,7 +19,7 @@ const formatProposalNumber = proposalNumber => proposalNumber.toString().padStar
 
 
 const initialize = async () => {
-  const proposalNumberButton = document.getElementById('proposal-number')
+  const proposalNumberButton = document.getElementById('proposal_number')
   const settings = await window.settings.allSettings()
   console.log(settings);
   const defaultFolder = humanizePath(settings.default_folder)
@@ -109,7 +109,7 @@ async function createProposal(event) {
   if (response) {
     console.log(response);
     this.reset()
-    document.getElementById('proposal-number').value = formatProposalNumber(response.proposalId)
+    document.getElementById('proposal_number').value = formatProposalNumber(response.proposalId)
     document.getElementById('open-files').value = response.path
     document.getElementById('dialog-demo').showModal()
     
@@ -121,7 +121,8 @@ function toggleElements() {
   toggledElements.forEach(element => {
     element.querySelectorAll("input").forEach(input => {
       input.toggleAttribute("required")
-      input.value = ""
+      if (!input.type === 'date') input.value = ""
+      if (input.id === "fecha_licitacion") input.value = ""
     })
     element.toggleAttribute("hidden")
   })
@@ -132,4 +133,4 @@ initialize()
 defaultOutputPathButton.addEventListener('click', changeOutputPath)
 entePublicoCheckbox.addEventListener('click', toggleElements)
 document.getElementById('myForm').addEventListener('submit', createProposal);
-document.getElementById('proposal-number').addEventListener('change', changeCorrelativeId)
+document.getElementById('proposal_number').addEventListener('change', changeCorrelativeId)
